@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lakhipur Middle School, Uttar Dinajpur, West Bengal - shaping confident learners and a brighter future.">
+  <title>{% block title %}Lakhipur Middle School{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { ink: '#16372c', royal: '#174d3c', lime: '#d9e7a5', amber: '#f2bd3d', clay: '#d95f3f' }, fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] } } } };
+  </script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <style>
+    :root { --ink: #16372c; --royal: #174d3c; --lime: #d9e7a5; --paper: #fff8e7; }
+    body { background: var(--paper); color: var(--ink); }
+    .display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.035em; }
+    .bengali { font-family: 'Noto Serif Bengali', serif; }
+    .paper-grid { background-color: var(--paper); background-image: linear-gradient(rgba(23,77,60,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(23,77,60,.055) 1px, transparent 1px); background-size: 32px 32px; }
+    .hero-wash { background: linear-gradient(110deg, rgba(22,55,44,.96) 0%, rgba(23,77,60,.86) 57%, rgba(23,77,60,.3) 100%); }
+    .lift { transition: transform .25s ease, box-shadow .25s ease; }
+    .lift:hover { transform: translateY(-6px); box-shadow: 0 18px 38px rgba(16,26,57,.14); }
+    .ticker { animation: ticker 28s linear infinite; }
+    @keyframes ticker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+    @media (prefers-reduced-motion: reduce) { .ticker { animation: none; } .lift { transition: none; } }
+    input, select, textarea { width: 100%; border: 1px solid #d6dbe5; border-radius: 12px; background: #fff; padding: .8rem 1rem; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--royal); box-shadow: 0 0 0 3px rgba(18,60,134,.12); }
+    .errorlist { color: #b42318; font-size: .82rem; margin-top: .35rem; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="font-sans antialiased">
+  <div class="bg-amber-400 px-4 py-2 text-center text-xs font-bold uppercase tracking-[.16em] text-ink overflow-hidden">
+    <div class="ticker whitespace-nowrap">Admissions open for session 2027 <span class="mx-3">•</span> Nursery to Class Nine <span class="mx-3">•</span> Limited seats available <span class="mx-3">•</span> Enroll today for a brighter tomorrow</div>
+  </div>
+  <nav class="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <a href="{% url 'school:home' %}" class="flex items-center gap-3">
+        <div class="grid h-11 w-11 place-items-center rounded-xl bg-royal text-xl font-bold text-white shadow-lg shadow-emerald-950/20">L</div>
+        <div><div class="display text-lg font-bold leading-none">Lakhipur</div><div class="text-[10px] font-bold uppercase tracking-[.22em] text-slate-500">Middle School</div></div>
+      </a>
+      <button id="menu-button" class="rounded-lg border border-slate-200 p-2 text-royal md:hidden" aria-label="Toggle navigation">☰</button>
+      <div id="menu" class="absolute left-0 top-full hidden w-full border-b border-slate-200 bg-white px-5 py-4 md:static md:flex md:w-auto md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0">
+        <a class="py-2 text-sm font-semibold text-slate-600 hover:text-royal" href="{% url 'school:home' %}#about">About</a>
+        <a class="py-2 text-sm font-semibold text-slate-600 hover:text-royal" href="{% url 'school:home' %}#academics">Academics</a>
+        <a class="py-2 text-sm font-semibold text-slate-600 hover:text-royal" href="{% url 'school:notices' %}">Notices</a>
+        <a class="py-2 text-sm font-semibold text-slate-600 hover:text-royal" href="{% url 'school:prospectus' %}">Prospectus</a>
+        <a class="rounded-full bg-royal px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-950/20 hover:bg-ink" href="{% url 'school:admission' %}">Apply for admission <span class="ml-1">↗</span></a>
+      </div>
+    </div>
+  </nav>
+  {% if messages %}<div class="mx-auto max-w-7xl px-5 pt-5 lg:px-8">{% for message in messages %}<div class="rounded-2xl border border-lime-300 bg-lime-100 px-5 py-4 text-sm font-semibold text-emerald-950">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% block content %}{% endblock %}
+  <footer class="bg-ink text-white">
+    <div class="mx-auto grid max-w-7xl gap-12 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
+      <div><div class="display text-2xl font-bold">Lakhipur Middle School</div><p class="mt-4 max-w-sm text-sm leading-7 text-slate-300">শিক্ষাই শক্তি, শিক্ষাই ভবিষ্যৎ. A focused learning community in Uttar Dinajpur, West Bengal, growing capable minds with care.</p></div>
+      <div><div class="mb-4 text-xs font-bold uppercase tracking-[.2em] text-lime-300">Explore</div><div class="grid gap-3 text-sm text-slate-300"><a href="{% url 'school:home' %}#about" class="hover:text-white">About the school</a><a href="{% url 'school:notices' %}" class="hover:text-white">Notice board</a><a href="{% url 'school:admission' %}" class="hover:text-white">Admissions 2027</a></div></div>
+      <div><div class="mb-4 text-xs font-bold uppercase tracking-[.2em] text-lime-300">Visit us</div><p class="text-sm leading-7 text-slate-300">AT+P.O- Lakhipur,<br>P.S- Chorakkar, Uttar Dinajpur<br>West Bengal, PIN-733134</p><div class="mt-3 flex flex-wrap gap-3 text-sm font-bold"><a href="tel:+918617895832" class="text-white hover:text-lime-300">Call school</a><a href="https://wa.me/918617895832" class="text-lime-300 hover:text-white">WhatsApp</a></div></div>
+    </div>
+    <div class="border-t border-white/10 px-5 py-5 text-center text-xs text-slate-400">© 2026 Lakhipur Middle School. Built for a brighter future.</div>
+  </footer>
+  <script>document.getElementById('menu-button')?.addEventListener('click', () => document.getElementById('menu').classList.toggle('hidden'));</script>
+</body>
+</html>
